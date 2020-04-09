@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face{
+    font-family: 'Comic neue';
+    src:url(/assets/fonts/Comic_Neue/ComicNeue-Regular.ttf) format("truetype");
+}
+h1{
+    font-family: 'Comic neue';
+}

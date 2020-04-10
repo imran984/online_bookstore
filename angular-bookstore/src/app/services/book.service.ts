@@ -16,8 +16,9 @@ export class BookService {
   }
   // observable returns the data and observer consumes the data
   // book-list is consumer. observer needs to subscribe to the observable
-  getBooks():Observable<Book[]>{
-      return this.httpClient.get<GetResponseBooks>(this.baseUrl).pipe(map(response=>response._embedded.books));
+  getBooks(theCategoryId:number):Observable<Book[]>{
+    const searchUrl=`${this.baseUrl}/search/categoryid?id=${theCategoryId}`;
+      return this.httpClient.get<GetResponseBooks>(searchUrl).pipe(map(response=>response._embedded.books));
   }
 }
 

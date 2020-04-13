@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵgetSanitizationBypassType } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,12 +21,24 @@ export class BookService {
   // book-list is consumer. observer needs to subscribe to the observable
   getBooks(theCategoryId:number):Observable<Book[]>{
     const searchUrl=`${this.baseUrl}/search/categoryid?id=${theCategoryId}`;
-      return this.httpClient.get<GetResponseBooks>(searchUrl).pipe(map(response=>response._embedded.books));
+      return this.getBooksList(searchUrl);
   }
   
+  private getBooksList(searchUrl: string): Observable<Book[]> {
+    return this.httpClient.get<GetResponseBooks>(searchUrl).pipe(map(response => response._embedded.books));
+  }
+
   getBookCategories():Observable<BookCategory[]>{
     return this.httpClient.get<GetResponseBooksCategory>(this.categoryUrl).pipe(map(response=>response._embedded.bookCategory));
 
+  }
+  searchBooks(keyword:string):Observable<Book[]>{
+    const searchUrl=`${this.baseUrl}/search/searchbykeyword?name=${keyword}`;
+      return this.getBooksList(searchUrl);
+  }
+  getSpecBDet(bookId:number):Observable<Book>{
+    const bookDetailsUrl= `${this.baseUrl}/${bookId}`;
+  return this.httpClient.get<Book>(bookDetailsUrl);
   }
 }
 

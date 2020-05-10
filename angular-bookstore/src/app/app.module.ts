@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule,Routes } from '@angular/router';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 import { AppComponent } from './app.component';
 import { BookListComponent } from './components/book-list/book-list.component';
@@ -28,11 +29,15 @@ const routes:Routes=[
     BookCategoryComponent,
     SearchComponent,
     BookDetailsComponent
+    
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgxPaginationModule,
+    NgbModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]
